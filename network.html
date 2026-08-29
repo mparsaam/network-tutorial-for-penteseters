@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌐 آکادمی نتورک — Network Fundamentals & Network+</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Vazirmatn:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#080c12; --panel:rgba(14,22,36,.55); --panel2:rgba(10,16,28,.6);
+  --border:rgba(80,180,255,.16); --text:#dce6f0; --muted:#7e8fa5;
+  --green:#44d9a0; --cyan:#5dadec; --yellow:#f0c040; --red:#ff5f57;
+  --purple:#b48aff; --pink:#f472b6;
+  --glass-hi:rgba(255,255,255,.08); --glass-lo:rgba(255,255,255,.02);
+  --shadow:0 20px 60px rgba(0,0,0,.5);
+}
+[data-theme="light"]{
+  --bg:#eef2f8; --panel:rgba(255,255,255,.75); --panel2:rgba(245,248,252,.82);
+  --border:rgba(30,90,180,.13); --text:#14202e; --muted:#4e6278;
+  --green:#1a7f60; --cyan:#1a7cc0; --yellow:#906; --red:#c00;
+  --purple:#6a3fc0; --pink:#b31566;
+  --glass-hi:rgba(255,255,255,.88); --glass-lo:rgba(255,255,255,.4);
+  --shadow:0 20px 50px rgba(10,30,60,.12);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{background:var(--bg);color:var(--text);font-family:'Vazirmatn','Segoe UI',Tahoma,sans-serif;line-height:1.9;overflow-x:hidden;transition:background .4s,color .4s}
+::selection{background:rgba(93,173,236,.3)}
+a{color:var(--cyan)}
+b{color:var(--yellow)}
+code{direction:ltr;display:inline-block;background:rgba(68,217,160,.12);color:#44d9a0;padding:0 6px;border-radius:5px;font-size:12px;font-family:'JetBrains Mono',monospace}
+[data-theme="light"] code{background:rgba(26,127,96,.1);color:#1a7f60}
+#matrix{position:fixed;inset:0;z-index:0;opacity:.07;pointer-events:none}
+.bg-grid{position:fixed;inset:0;z-index:0;pointer-events:none;background-image:linear-gradient(rgba(93,173,236,.04) 1px,transparent 1px),linear-gradient(90deg,rgba(93,173,236,.04) 1px,transparent 1px);background-size:44px 44px;mask-image:radial-gradient(ellipse at 50% 0%,black 30%,transparent 78%)}
+.orb{position:fixed;border-radius:50%;filter:blur(90px);z-index:0;pointer-events:none;animation:float 18s ease-in-out infinite alternate;opacity:.2}
+.orb1{width:420px;height:420px;background:radial-gradient(circle,var(--cyan),transparent 70%);top:-130px;right:-110px}
+.orb2{width:380px;height:380px;background:radial-gradient(circle,var(--green),transparent 70%);bottom:-110px;left:-130px;animation-delay:-6s}
+.orb3{width:300px;height:300px;background:radial-gradient(circle,var(--purple),transparent 70%);top:45%;left:28%;animation-delay:-12s;opacity:.1}
+@keyframes float{from{transform:translate(0,0) scale(1)}to{transform:translate(50px,-45px) scale(1.18)}}
+#cursorGlow{position:fixed;top:0;left:0;width:500px;height:500px;z-index:1;pointer-events:none;background:radial-gradient(circle,rgba(93,173,236,.12),transparent 65%);mix-blend-mode:screen;transform:translate(-999px,-999px)}
+nav{position:sticky;top:0;z-index:60;background:color-mix(in srgb,var(--bg) 70%,transparent);backdrop-filter:blur(20px) saturate(180%);-webkit-backdrop-filter:blur(20px) saturate(180%);border-bottom:1px solid var(--border)}
+.nav-inner{max-width:1100px;margin:0 auto;padding:8px 14px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.nav-logo{font-weight:900;color:var(--green);white-space:nowrap;text-shadow:0 0 18px rgba(68,217,160,.6);font-size:15px}
+.nav-meta{display:flex;align-items:center;gap:8px;margin-inline-start:auto}
+#clockWrap{display:flex;flex-direction:column;align-items:flex-end;line-height:1.3;background:var(--glass-hi);border:1px solid var(--border);border-radius:12px;padding:3px 12px;font-family:'JetBrains Mono',monospace;direction:ltr}
+#clockTime{color:var(--green);font-size:13px;font-weight:700}
+#clockDate{color:var(--muted);font-size:10px;direction:rtl;font-family:'Vazirmatn',sans-serif}
+.study-badge{font-size:11.5px;color:var(--cyan);background:var(--glass-hi);border:1px solid var(--border);padding:4px 10px;border-radius:20px;white-space:nowrap}
+#themeToggle{width:40px;height:40px;border-radius:50%;cursor:pointer;font-size:18px;border:1px solid var(--border);background:linear-gradient(145deg,var(--glass-hi),var(--glass-lo));color:var(--yellow);transition:.3s;backdrop-filter:blur(8px)}
+#themeToggle:hover{transform:rotate(25deg) scale(1.1);box-shadow:0 0 22px rgba(240,192,64,.4)}
+.nav-links{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;flex:1 1 100%;order:3;padding-bottom:4px}
+.nav-links::-webkit-scrollbar{display:none}
+.nav-links a{color:var(--muted);text-decoration:none;font-size:11.5px;white-space:nowrap;padding:4px 10px;border-radius:20px;border:1px solid transparent;transition:.2s}
+.nav-links a:hover{color:var(--cyan);border-color:var(--border);background:rgba(93,173,236,.1)}
+#progressBar{position:absolute;bottom:-2px;right:0;height:2px;width:0%;background:linear-gradient(90deg,var(--green),var(--cyan),var(--purple));box-shadow:0 0 12px rgba(93,173,236,.8);transition:width .1s linear}
+header{padding:60px 0 26px;text-align:center;position:relative}
+.hero-badge{display:inline-block;font-size:12px;letter-spacing:1px;color:var(--cyan);border:1px solid rgba(93,173,236,.45);padding:4px 18px;border-radius:30px;margin-bottom:16px;background:rgba(93,173,236,.08);box-shadow:0 0 26px rgba(93,173,236,.3);animation:pulseGlow 3s ease-in-out infinite}
+@keyframes pulseGlow{0%,100%{box-shadow:0 0 14px rgba(93,173,236,.2)}50%{box-shadow:0 0 34px rgba(93,173,236,.55)}}
+header h1{font-size:clamp(28px,5vw,46px);font-weight:900;line-height:1.4;margin-bottom:12px;background:linear-gradient(90deg,var(--green),var(--cyan),var(--purple),var(--green));background-size:300% auto;-webkit-background-clip:text;background-clip:text;color:transparent;animation:shine 7s linear infinite}
+@keyframes shine{to{background-position:300% center}}
+header .sub{color:var(--muted);font-size:15px;max-width:660px;margin:0 auto 22px}
+.hero-stats{display:flex;justify-content:center;gap:12px;flex-wrap:wrap;margin-bottom:26px}
+.stat{background:linear-gradient(150deg,var(--glass-hi),var(--glass-lo));border:1px solid var(--border);border-radius:16px;padding:12px 22px;min-width:126px;backdrop-filter:blur(14px);transition:.3s;animation:floatCard 5s ease-in-out infinite}
+.stat:nth-child(2){animation-delay:-1.2s}.stat:nth-child(3){animation-delay:-2.4s}.stat:nth-child(4){animation-delay:-3.6s}
+@keyframes floatCard{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.stat:hover{transform:translateY(-6px) scale(1.04);box-shadow:0 14px 40px rgba(93,173,236,.2)}
+.stat b{display:block;font-size:26px;color:var(--green);font-family:'JetBrains Mono',monospace}
+.stat span{font-size:12px;color:var(--muted)}
+.terminal{text-align:right;direction:ltr;background:rgba(2,4,9,.92);border:1px solid var(--border);border-radius:16px;overflow:hidden;box-shadow:0 0 50px rgba(93,173,236,.14),var(--shadow);margin:0 auto 12px;max-width:720px;position:relative}
+.terminal::before{content:"";position:absolute;inset:-1px;border-radius:16px;padding:1px;z-index:-1;background:linear-gradient(120deg,var(--green),transparent 40%,var(--cyan) 70%,var(--purple));-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.7;animation:borderSpin 4s linear infinite}
+@keyframes borderSpin{to{filter:hue-rotate(360deg)}}
+.term-bar{display:flex;align-items:center;gap:6px;background:#0b1220;padding:10px 14px;border-bottom:1px solid var(--border)}
+.dot{width:11px;height:11px;border-radius:50%}
+.dot.r{background:#ff5f57}.dot.y{background:#febc2e}.dot.g{background:#28c840}
+.term-title{margin-left:auto;color:var(--muted);font-size:11px;font-family:'JetBrains Mono',monospace}
+#typing{padding:18px 20px;min-height:250px;font-family:'JetBrains Mono',Consolas,monospace;font-size:13px;line-height:1.9;color:#7ee787;white-space:pre-wrap;text-align:left}
+#typing .prompt{color:var(--green)}#typing .path{color:var(--cyan)}
+#typing .ok{color:var(--green);font-weight:700}#typing .info{color:var(--yellow)}
+#typing .crack{color:var(--purple);font-weight:700}#typing .dim{color:#4a5a70}
+.cursor{display:inline-block;width:8px;height:15px;background:var(--green);vertical-align:middle;animation:blink 1s steps(1) infinite}
+@keyframes blink{50%{opacity:0}}
+.container{position:relative;z-index:2;max-width:960px;margin:0 auto;padding:0 16px}
+section{background:linear-gradient(150deg,var(--glass-hi),var(--glass-lo) 45%,rgba(93,173,236,.05));backdrop-filter:blur(18px) saturate(160%);-webkit-backdrop-filter:blur(18px) saturate(160%);border:1px solid var(--border);border-radius:20px;padding:28px 26px;margin:22px 0;opacity:0;transform:translateY(30px);transition:opacity .7s ease,transform .7s ease,box-shadow .3s;position:relative;box-shadow:inset 0 1px 0 rgba(255,255,255,.08),var(--shadow)}
+section.visible{opacity:1;transform:none}
+section:hover{box-shadow:inset 0 1px 0 rgba(255,255,255,.1),0 0 50px rgba(93,173,236,.12)}
+section::before{content:"";position:absolute;top:0;right:26px;left:26px;height:2px;background:linear-gradient(90deg,transparent,var(--cyan),transparent);opacity:.55}
+section::after{content:"";position:absolute;inset:0;border-radius:20px;pointer-events:none;opacity:0;box-shadow:inset 0 0 0 1px rgba(93,173,236,.25),inset 0 0 40px rgba(93,173,236,.05);transition:opacity .4s}
+section:hover::after{opacity:1}
+.sec-head{display:flex;align-items:center;gap:14px;margin-bottom:18px;flex-wrap:wrap}
+.sec-icon{width:48px;height:48px;flex-shrink:0;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:23px;background:linear-gradient(145deg,rgba(93,173,236,.2),rgba(93,173,236,.05));border:1px solid var(--border);box-shadow:0 0 22px rgba(93,173,236,.18),inset 0 1px 0 rgba(255,255,255,.15);animation:iconPulse 4s ease-in-out infinite}
+@keyframes iconPulse{0%,100%{box-shadow:0 0 14px rgba(93,173,236,.15)}50%{box-shadow:0 0 30px rgba(93,173,236,.4)}}
+.sec-head h2{font-size:20px;font-weight:900;color:var(--text)}
+.sec-head .tag{font-size:11px;color:var(--muted);background:rgba(125,139,163,.12);padding:2px 10px;border-radius:20px}
+h3{font-size:15.5px;color:var(--cyan);margin:20px 0 8px;display:flex;align-items:center;gap:8px}
+h3::before{content:"▸";color:var(--green)}
+h4{font-size:14.5px;color:var(--green);margin:12px 0 4px}
+p{font-size:14px;color:var(--text);margin-bottom:10px}
+p.dim,.dim{color:var(--muted)}
+ul,ol{padding-right:22px;margin:8px 0}
+li{font-size:14px;margin-bottom:5px}
+li b,p b,td b{color:var(--yellow)}
+.hw{color:var(--yellow);background:rgba(227,179,65,.12);padding:0 4px;border-radius:5px;border-bottom:1px dashed var(--yellow);cursor:help;font-weight:700;white-space:nowrap}
+.hwdef{color:var(--muted);font-size:12.5px;background:rgba(125,139,163,.1);padding:0 6px;border-radius:6px;white-space:normal}
+.cmd{direction:ltr;text-align:left;background:rgba(2,4,9,.92);border:1px solid var(--border);border-radius:14px;margin:12px 0;overflow:hidden;position:relative}
+.cmd:hover{border-color:rgba(93,173,236,.4);box-shadow:0 0 24px rgba(93,173,236,.12)}
+.cmd-bar{display:flex;align-items:center;gap:8px;background:#0b1220;padding:6px 12px;border-bottom:1px solid var(--border)}
+.cmd-bar .t{font-size:11px;color:var(--muted);font-family:'JetBrains Mono',monospace;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.copy-btn{margin-left:auto;cursor:pointer;border:1px solid var(--border);background:rgba(93,173,236,.12);color:var(--cyan);font-size:11px;font-family:'Vazirmatn',sans-serif;padding:3px 14px;border-radius:9px;transition:.25s;flex-shrink:0}
+.copy-btn:hover{background:var(--cyan);color:#080c12;transform:translateY(-1px)}
+.copy-btn.copied{background:var(--green);color:#080c12;border-color:var(--green)}
+.cmd pre{padding:14px 16px;overflow-x:auto;font-family:'JetBrains Mono',Consolas,monospace;font-size:12.5px;line-height:1.9;color:#7ee787}
+.cmd .cm{color:#4a5a70}
+.cmd .yl{color:var(--yellow)}
+.tbl-wrap{overflow-x:auto;margin:12px 0;border-radius:12px;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:13px;min-width:560px}
+th{background:rgba(14,22,36,.6);color:var(--cyan);padding:9px 12px;border:1px solid var(--border);text-align:right;font-weight:700;white-space:nowrap}
+td{padding:8px 12px;border:1px solid var(--border);color:var(--text)}
+tr:nth-child(even) td{background:rgba(93,173,236,.05)}
+[data-theme="light"] th{background:rgba(26,124,192,.08)}
+[data-theme="light"] tr:nth-child(even) td{background:rgba(26,124,192,.04)}
+.st-open{color:var(--green);font-weight:700}.st-closed{color:var(--red);font-weight:700}.st-weak{color:var(--yellow);font-weight:700}
+.note,.warn,.ok,.tip{border-radius:12px;padding:11px 15px;font-size:13px;margin:12px 0;border-right:4px solid;background:var(--glass-lo);backdrop-filter:blur(8px)}
+.note{border-color:var(--yellow);color:var(--yellow)}
+.warn{border-color:var(--red);color:#f87573}
+.ok{border-color:var(--green);color:var(--green)}
+.tip{border-color:var(--purple);color:var(--purple)}
+.timeline{position:relative;padding-right:26px}
+.timeline::before{content:"";position:absolute;right:8px;top:4px;bottom:4px;width:2px;background:linear-gradient(180deg,var(--green),var(--cyan),var(--purple))}
+.tl-item{position:relative;margin-bottom:16px}
+.tl-item::before{content:"";position:absolute;right:-24px;top:8px;width:10px;height:10px;border-radius:50%;background:var(--green);box-shadow:0 0 14px var(--green)}
+.tl-item h4{font-size:14.5px;color:var(--green);margin-bottom:2px}
+.tl-item p{font-size:13px;color:var(--muted);margin:0}
+.tl-item b{color:var(--cyan)}
+.gloss{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+.gloss-item{background:var(--glass-lo);border:1px solid var(--border);border-radius:12px;padding:10px 14px;backdrop-filter:blur(8px);transition:.25s}
+.gloss-item:hover{transform:translateY(-3px);border-color:var(--cyan);box-shadow:0 8px 26px rgba(93,173,236,.15)}
+.gloss-item b{color:var(--yellow);font-family:'JetBrains Mono',monospace;font-size:12.5px;display:block;margin-bottom:2px;direction:ltr;text-align:right}
+.gloss-item span{font-size:12.5px;color:var(--muted)}
+.quiz{margin-top:18px;background:linear-gradient(150deg,rgba(180,138,255,.08),rgba(93,173,236,.04));border:1px dashed var(--purple);border-radius:16px;padding:16px 18px}
+.quiz-title{font-size:14px;font-weight:900;color:var(--purple);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+.q{margin-bottom:14px;padding-bottom:12px;border-bottom:1px dashed rgba(180,138,255,.25)}
+.q:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.q-t{font-size:13.5px;font-weight:700;color:var(--text);margin-bottom:8px}
+.q label{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--text);padding:7px 12px;border-radius:10px;border:1px solid var(--border);margin-bottom:6px;cursor:pointer;transition:.2s}
+.q label:hover{background:rgba(180,138,255,.08);border-color:var(--purple)}
+.q input[type=radio]{accent-color:var(--purple);width:16px;height:16px;cursor:pointer}
+.q-actions{display:flex;gap:8px;margin-top:8px;flex-wrap:wrap}
+.btn-mini{cursor:pointer;border:none;border-radius:10px;padding:7px 18px;font-family:inherit;font-size:12.5px;font-weight:700;color:#080c12;background:linear-gradient(135deg,var(--purple),var(--cyan));box-shadow:0 4px 0 rgba(10,20,40,.7);transition:.2s;position:relative;overflow:hidden}
+.btn-mini:hover{transform:translateY(-2px);box-shadow:0 6px 0 rgba(10,20,40,.7),0 10px 26px rgba(180,138,255,.35)}
+.btn-mini:active{transform:translateY(2px);box-shadow:0 2px 0 rgba(10,20,40,.7)}
+.btn-mini::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.55),transparent);transform:skewX(-20deg);transition:.5s}
+.btn-mini:hover::after{left:130%}
+.q-fb{font-size:13px;font-weight:700;margin-top:8px;min-height:0}
+.q-fb.good{color:var(--green)}.q-fb.bad{color:var(--red)}
+.q-ans{margin-top:8px;background:rgba(68,217,160,.08);border:1px solid rgba(68,217,160,.3);border-radius:10px;padding:10px 14px;font-size:13px;color:var(--text)}
+.q-ans b{color:var(--green)}
+#cheatSearch{width:100%;padding:13px 18px;border-radius:14px;border:1px solid var(--border);background:var(--glass-lo);color:var(--text);font-family:inherit;font-size:14px;backdrop-filter:blur(10px);transition:.3s;margin-bottom:6px}
+#cheatSearch:focus{outline:none;border-color:var(--cyan);box-shadow:0 0 0 4px rgba(93,173,236,.15)}
+#cheatCount{font-size:12px;color:var(--muted);margin-bottom:8px}
+.sec-nav{display:flex;justify-content:space-between;gap:10px;margin-top:22px;padding-top:14px;border-top:1px dashed var(--border);flex-wrap:wrap}
+.sec-nav a{text-decoration:none;font-size:12.5px;padding:8px 16px;border-radius:12px;font-weight:700;background:var(--glass-lo);border:1px solid var(--border);color:var(--cyan);transition:.25s}
+.sec-nav a:hover{background:var(--cyan);color:#080c12;transform:translateY(-2px);box-shadow:0 8px 22px rgba(93,173,236,.3)}
+.btn-grad{position:relative;display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border:none;border-radius:14px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:900;color:#080c12;background:linear-gradient(135deg,var(--green),var(--cyan));box-shadow:0 6px 0 rgba(11,30,20,.9),0 14px 34px rgba(68,217,160,.3);transition:.2s;overflow:hidden;margin:4px}
+.btn-grad:hover{transform:translateY(-3px);box-shadow:0 9px 0 rgba(11,30,20,.9),0 20px 44px rgba(68,217,160,.45)}
+.btn-grad:active{transform:translateY(3px);box-shadow:0 3px 0 rgba(11,30,20,.9)}
+.btn-grad::after{content:"";position:absolute;top:0;left:-80%;width:50%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.6),transparent);transform:skewX(-20deg);transition:.5s}
+.btn-grad:hover::after{left:130%}
+.btn-outline{display:inline-flex;align-items:center;gap:8px;padding:12px 26px;border-radius:14px;cursor:pointer;font-family:inherit;font-size:14px;font-weight:700;color:var(--cyan);background:transparent;border:2px solid var(--cyan);transition:.25s;margin:4px}
+.btn-outline:hover{background:var(--cyan);color:#080c12;transform:translateY(-2px);box-shadow:0 10px 30px rgba(93,173,236,.35)}
+.toolbar{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin:6px 0 20px}
+footer{text-align:center;color:var(--muted);font-size:12px;padding:34px 0 40px;border-top:1px solid var(--border);margin-top:30px}
+footer .lock{color:var(--green);font-size:22px;margin-bottom:6px;text-shadow:0 0 16px rgba(68,217,160,.6);animation:floatCard 3s ease-in-out infinite}
+footer b{color:var(--cyan)}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+.roadmap{display:flex;flex-direction:column;gap:10px;margin:16px 0}
+.rm-item{display:flex;align-items:center;gap:14px;background:var(--glass-lo);border:1px solid var(--border);border-radius:14px;padding:14px 16px;transition:.3s}
+.rm-item:hover{transform:translateX(-4px);border-color:var(--cyan)}
+.rm-num{width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:16px;font-family:'JetBrains Mono',monospace;flex-shrink:0}
+.rm-done .rm-num{background:var(--green);color:#080c12}.rm-active .rm-num{background:var(--cyan);color:#080c12;box-shadow:0 0 20px rgba(93,173,236,.6)}
+.rm-item.rm-done{opacity:.75}.rm-item.rm-active{border-color:var(--cyan);box-shadow:0 0 30px rgba(93,173,236,.2)}
+.rm-item b{color:var(--text);font-size:14px}.rm-item small{color:var(--muted);font-size:11.5px}
+#scrollTop{position:fixed;bottom:24px;right:24px;width:48px;height:48px;border-radius:14px;background:linear-gradient(135deg,var(--purple),var(--cyan));color:#080c12;font-size:22px;z-index:99;display:none;align-items:center;justify-content:center;cursor:pointer;border:none;box-shadow:0 8px 30px rgba(93,173,236,.4);transition:.3s}
+#scrollTop:hover{transform:translateY(-4px);box-shadow:0 12px 40px rgba(93,173,236,.6)}
+.chk-list{list-style:none;padding:0!important}
+.chk-list li{margin-bottom:8px}
+.chk-list label{display:flex;align-items:center;gap:10px;cursor:pointer;padding:8px 14px;border-radius:12px;border:1px solid var(--border);background:var(--glass-lo);transition:.25s}
+.chk-list label:hover{border-color:var(--cyan);background:rgba(93,173,236,.08)}
+.chk-list input[type=checkbox]{width:20px;height:20px;accent-color:var(--green);cursor:pointer;flex-shrink:0}
+.chk-list input[type=checkbox]:checked+span{text-decoration:line-through;opacity:.7}
+.chk-actions{margin-top:12px;display:flex;gap:8px}
+@media (max-width:640px){
+  .gloss{grid-template-columns:1fr}
+  section{padding:20px 14px}
+  .nav-meta{width:100%;justify-content:space-between}
+  .stat{min-width:110px;padding:10px 14px}
+  .sec-nav{flex-direction:column}
+  .sec-nav a{text-align:center}
+}
+@media (prefers-reduced-motion:reduce){
+  #matrix,.bg-grid,#cursorGlow,.orb{display:none!important}
+  *{animation:none!important;transition:none!important}
+  html{scroll-behavior:auto}
+  section{opacity:1;transform:none}
+}
+@media print{
+  body{background:#fff;color:#111}
+  body *{box-shadow:none!important;text-shadow:none!important}
+  nav,#matrix,.bg-grid,#cursorGlow,.orb,#progressBar,.sec-nav,.copy-btn,.btn-mini,.q-actions,.toolbar,#themeToggle,.hero-badge,.term-bar,.stat,.study-badge{display:none!important}
+  header{padding:6px 0}
+  header h1{-webkit-text-fill-color:#111;color:#111;background:none;animation:none}
+  section{opacity:1!important;transform:none!important;break-inside:avoid;background:#fff!important;border:1px solid #bbb!important;color:#111!important;margin:12px 0;padding:16px}
+  section *{color:#111!important}
+  section::before,section::after{display:none}
+  .cmd{background:#f6f8fa!important;border:1px solid #bbb;break-inside:avoid}
+  .cmd-bar{background:#e9edf3!important}
+  .cmd pre,.cmd pre *,.terminal{color:#111!important;background:#f6f8fa!important}
+  .terminal{border:1px solid #bbb}
+  #typing{min-height:0;color:#111}
+  table{min-width:0}
+  th{background:#e9edf3!important;color:#111!important}
+  td,th{border-color:#bbb!important}
+  tr:nth-child(even) td{background:#fafafa!important}
+  .dim{color:#555!important}
+  .q-ans{display:block!important;background:#f0f7f0!important;border-color:#888!important}
+  .gloss-item,.note,.warn,.ok,.tip{background:#f6f6f6!important;border-color:#bbb!important;color:#333!important}
+  .hw{color:#333;background:#f3e9c9}
+  .hwdef{color:#555}
+}
+.print-cheat section:not(#cheatsheet){display:none!important}
+.print-cheat header,.print-cheat footer{display:none!important}
+</style>
+</head>
+<body>
+
+<canvas id="matrix"></canvas>
+<div class="bg-grid"></div>
+<div class="orb orb1"></div><div class="orb orb2"></div><div class="orb orb3"></div>
+<div id="cursorGlow"></div>
+
+<nav>
+  <div class="nav-inner">
+    <span class="nav-logo">🌐 NET-ACADEMY</span>
+    <div class="nav-meta">
+      <span id="clockWrap">
+        <span id="clockTime">--:--</span>
+        <span id="clockDate"></span>
+      </span>
+      <span class="study-badge">📚 <b id="studyProg">۰/۰</b></span>
+      <button id="themeToggle" aria-label="تغییر حالت">☀️</button>
+    </div>
+    <div class="nav-links">
+      <a href="#intro">مقدمه</a><a href="#osi">OSI + TCP/IP</a><a href="#ip">IP & Subnetting</a>
+      <a href="#mac">MAC & ARP</a><a href="#switch">سوئیچینگ</a><a href="#vlan">VLAN</a>
+      <a href="#routing">Routing</a><a href="#protocols">پروتکل‌ها</a><a href="#dns">DNS</a>
+      <a href="#dhcp">DHCP</a><a href="#nat">NAT</a><a href="#wifi">وایرلس</a>
+      <a href="#fiber">فیبر نوری</a><a href="#sec">امنیت شبکه</a><a href="#trouble">عیب‌یابی</a>
+      <a href="#glossary">واژه‌نامه</a><a href="#cheatsheet">چیت‌شیت</a><a href="#roadmap">نقشه راه</a>
+    </div>
+    <div id="progressBar"></div>
+  </div>
+</nav>
+
+<div class="container">
+
+<header>
+  <div class="hero-badge">🌐 Network Fundamentals + — دوره کامل مبانی شبکه</div>
+  <h1>آکادمی نتورک</h1>
+  <p class="sub">از لایه‌های OSI تا ساب‌نتینگ، مسیریابی، سوئیچینگ، DNS، DHCP، NAT، وایرلس و امنیت شبکه — همه‌ی چیزهایی که هر تست‌کننده نفوذی باید بلد باشه. کلماتی که <span class="hw">***مشخص***</span> شدن سخت‌ان؛ توضیح کنارشون رو بخون.</p>
+  <div class="hero-stats">
+    <div class="stat"><b data-count="20">۰</b><span>بخش آموزشی</span></div>
+    <div class="stat"><b data-count="7">۰</b><span>لایه OSI</span></div>
+    <div class="stat"><b data-count="40">۰</b><span>+ پروتکل کلیدی</span></div>
+    <div class="stat"><b data-count="12">۰</b><span>نقشه راه</span></div>
+  </div>
+  <div class="toolbar">
+    <button class="btn-grad" onclick="window.print()">🖨️ چاپ / PDF</button>
+    <button class="btn-grad" onclick="document.querySelector('#cheatsheet').scrollIntoView({behavior:'smooth'})">⚡ چیت‌شیت</button>
+  </div>
+  <div class="terminal">
+    <div class="term-bar">
+      <span class="dot r"></span><span class="dot y"></span><span class="dot g"></span>
+      <span class="term-title">netlab@kali: ~</span>
+    </div>
+    <div id="typing"></div>
+  </div>
+  <p class="dim" style="font-size:12px;text-align:center;">⬆️ شبیه‌سازی زنده — عیب‌یابی مسیریابی با traceroute و ping</p>
+</header>
+
+<!-- ۱. مقدمه -->
+<section>
+  <div class="sec-head"><div class="sec-icon">🌍</div><h2>مقدمه — شبکه‌های کامپیوتری چرا مهم‌اند؟</h2><span class="tag">سطح: مبتدی</span></div>
+  <p>بدون شبکه، ابزارهای هکری <b>هیچ‌کدوم</b> کار نمی‌کنن. هیدرا به شبکه وصل می‌شه، متاسپلویت پکت می‌فرسته، WPScan HTTP درخواست می‌ده — همه به زیرساخت شبکه وابسته‌ان. اگه نتورک رو بلد نباشی، مثل برق‌کاری می‌مونی که نمی‌دونه برق چیه!</p>
+  <p><span class="hw">***شبکه***</span> <span class="hwdef">= مجموعه‌ای از دستگاه‌های متصل (کامپیوتر، سرور، روتر، سوئیچ) که می‌تونن داده رو با هم به اشتراک بذارن</span> — از دو تا کامپیوتر تو یه خونه تا اینترنت جهانی.</p>
+  <h3>چرا برای هکرها حیاتی‌ست؟</h3>
+  <ul>
+    <li>🔍 <b>شناسایی:</b> تشخیص سرویس‌ها و پورت‌های باز (Nmap, netstat)</li>
+    <li>⚔️ <b>حملات:</b> ARP Spoofing, MITM, DNS Poisoning, DDoS</li>
+    <li>🔄 <b>مسیریابی:</b> Pivoting و عبور از شبکه‌های داخلی</li>
+    <li>🛡️ <b>دفاع:</b> فایروال، ACL, NAC, Segmentation</li>
+  </ul>
+  <div class="ok">✅ شبکه پایه‌ی تمام تست‌های نفوذه — این دوره رو جدی بگیر.</div>
+</section>
+
+<!-- ۲. لایه‌های OSI و TCP/IP -->
+<section id="osi">
+  <div class="sec-head"><div class="sec-icon">📚</div><h2>مدل OSI و TCP/IP — الفبای شبکه</h2><span class="tag">بنیادی</span></div>
+  <p>دو مدل اصلی برای توضیح چگونگی کار شبکه وجود داره: <b>OSI (Open Systems Interconnection)</b> ۷ لایه و <b>TCP/IP</b> ۴ لایه. به‌عنوان یه هکر، OSI رو برای تفکر و TCP/IP رو برای عمل باید بلد باشی.</p>
+
+  <h3>مدل OSI (۷ لایه)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>لایه</th><th>نام</th><th>وظیفه</th><th>دستگاه/پروتکل</th></tr>
+      <tr><td>۷</td><td>Application</td><td>برنامه‌های کاربردی</td><td>HTTP, FTP, SMTP, DNS</td></tr>
+      <tr><td>۶</td><td>Presentation</td><td>رمزگذاری، فشرده‌سازی</td><td>SSL/TLS, JPEG, MPEG</td></tr>
+      <tr><td>۵</td><td>Session</td><td>مدیریت جلسه</td><td>NetBIOS, RPC</td></tr>
+      <tr><td>۴</td><td>Transport</td><td>انتقال قابل اعتماد</td><td>TCP, UDP</td></tr>
+      <tr><td>۳</td><td>Network</td><td>مسیریابی و آدرس‌دهی منطقی</td><td>IP, Routers</td></tr>
+      <tr><td>۲</td><td>Data Link</td><td>آدرس‌دهی فیزیکی (MAC)</td><td>Switch, Ethernet, ARP</td></tr>
+      <tr><td>۱</td><td>Physical</td><td>انتقال بیت‌ها روی کابل</td><td>Hub, Repeater, کابل</td></tr>
+    </table>
+  </div>
+
+  <h3>مدل TCP/IP (۴ لایه)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>لایه</th><th>نام</th><th>معادل OSI</th><th>پروتکل‌ها</th></tr>
+      <tr><td>۴</td><td>Application</td><td>لایه ۵+۶+۷</td><td>HTTP, FTP, DNS, SMTP</td></tr>
+      <tr><td>۳</td><td>Transport</td><td>لایه ۴</td><td>TCP, UDP</td></tr>
+      <tr><td>۲</td><td>Internet</td><td>لایه ۳</td><td>IP, ICMP, ARP</td></tr>
+      <tr><td>۱</td><td>Network Access</td><td>لایه ۱+۲</td><td>Ethernet, Wi-Fi, PPP</td></tr>
+    </table>
+  </div>
+
+  <div class="tip">💡 <b>نکته:</b> از پایین‌ترین لایه (فیزیکی) شروع می‌شه و به بالاترین (کاربردی) می‌رسه. هر لایه فقط با لایه‌ی هم‌ردیف خودش در دستگاه مقصد صحبت می‌کنه.</div>
+
+  <h3>TCP vs UDP</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>ویژگی</th><th>TCP</th><th>UDP</th></tr>
+      <tr><td>اعتبار</td><td>اتصال‌گرا (Connection-oriented)</td><td>بی‌اتصال (Connectionless)</td></tr>
+      <tr><td>تضمین تحویل</td><td>بله (ACK, retransmit)</td><td>نه (best effort)</td></tr>
+      <tr><td>سرعت</td><td>کندتر</td><td>سریع‌تر</td></tr>
+      <tr><td>کاربرد</td><td>HTTP, FTP, SMTP, SSH</td><td>DNS, DHCP, VoIP, بازی</td></tr>
+      <tr><td>Header size</td><td>۲۰-۶۰ بایت</td><td>۸ بایت</td></tr>
+    </table>
+  </div>
+
+  <div class="quiz">
+    <div class="quiz-title">🧪 کوییز کوتاه</div>
+    <div class="q">
+      <div class="q-t">۱) روتر در کدام لایهٔ OSI کار می‌کند؟</div>
+      <label><input type="radio" name="no1" value="a"> لایه ۲ (Data Link)</label>
+      <label><input type="radio" name="no1" value="b"> لایه ۳ (Network)</label>
+      <label><input type="radio" name="no1" value="c"> لایه ۴ (Transport)</label>
+      <label><input type="radio" name="no1" value="d"> لایه ۷ (Application)</label>
+      <div class="q-actions"><button class="btn-mini q-check" data-ans="b">✅ بررسی</button><button class="btn-mini q-reveal">👁️ جواب</button></div>
+      <div class="q-fb" role="status"></div>
+      <div class="q-ans" hidden><b>جواب: لایه ۳ (Network).</b> روتر با آدرس IP کار می‌کند که لایه ۳ است.</div>
+    </div>
+    <div class="q">
+      <div class="q-t">۲) کدام پروتکل UDP است؟</div>
+      <label><input type="radio" name="no2" value="a"> HTTP</label>
+      <label><input type="radio" name="no2" value="b"> FTP</label>
+      <label><input type="radio" name="no2" value="c"> DNS</label>
+      <label><input type="radio" name="no2" value="d"> SMTP</label>
+      <div class="q-actions"><button class="btn-mini q-check" data-ans="c">✅ بررسی</button><button class="btn-mini q-reveal">👁️ جواب</button></div>
+      <div class="q-fb" role="status"></div>
+      <div class="q-ans" hidden><b>جواب: DNS.</b> DNS روی UDP پورت ۵۳ کار می‌کند (TCP هم می‌شود ولی پیش‌فرض UDP).</div>
+    </div>
+  </div>
+</section>
+
+<!-- ۳. آدرس IP و ساب‌نتینگ -->
+<section id="ip">
+  <div class="sec-head"><div class="sec-icon">🔢</div><h2>آدرس IP و Subnetting — حیاتی‌ترین مبحث</h2><span class="tag">مهم</span></div>
+  <p><span class="hw">***IPv4***</span> <span class="hwdef">= Internet Protocol version 4: آدرس ۳۲ بیتی که به صورت ۴ بخش ۸ بیتی (مثل 192.168.1.1) نوشته می‌شه. حدود ۴/۳ میلیارد آدرس.</span> و <span class="hw">***IPv6***</span> <span class="hwdef">= نسخه ۶ با ۱۲۸ بیت آدرس، مثلاً 2001:db8::1 — برای حل مشکل کمبود آدرس</span></p>
+
+  <h3>کلاس‌های IP</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>کلاس</th><th>محدوده</th><th>پیش‌فرض Subnet Mask</th><th>کاربرد</th></tr>
+      <tr><td>A</td><td>1.0.0.0 — 127.255.255.255</td><td>255.0.0.0 (/8)</td><td>شبکه‌های بزرگ (ISP)</td></tr>
+      <tr><td>B</td><td>128.0.0.0 — 191.255.255.255</td><td>255.255.0.0 (/16)</td><td>شرکت‌های متوسط</td></tr>
+      <tr><td>C</td><td>192.0.0.0 — 223.255.255.255</td><td>255.255.255.0 (/24)</td><td>شبکه‌های کوچک (شرکت‌ها)</td></tr>
+      <tr><td>D</td><td>224.0.0.0 — 239.255.255.255</td><td>-</td><td>Multicast</td></tr>
+      <tr><td>E</td><td>240.0.0.0 — 255.255.255.255</td><td>-</td><td>مختص آزمایش</td></tr>
+    </table>
+  </div>
+
+  <h3>آدرس‌های خصوصی (Private IP)</h3>
+  <ul>
+    <li><b>10.0.0.0/8:</b> 10.0.0.0 تا 10.255.255.255 (شبکه‌های بزرگ)</li>
+    <li><b>172.16.0.0/12:</b> 172.16.0.0 تا 172.31.255.255 (متوسط)</li>
+    <li><b>192.168.0.0/16:</b> 192.168.0.0 تا 192.168.255.255 (خانگی/کوچک)</li>
+    <li><b>127.0.0.0/8:</b> Loopback (localhost)</li>
+  </ul>
+
+  <h3>جدول Subnetting سریع (مهم‌ترین بخش)</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>CIDR</th><th>Subnet Mask</th><th>تعداد IP کل</th><th>تعداد Host قابل استفاده</th></tr>
+      <tr><td>/24</td><td>255.255.255.0</td><td>۲۵۶</td><td>۲۵۴</td></tr>
+      <tr><td>/25</td><td>255.255.255.128</td><td>۱۲۸</td><td>۱۲۶</td></tr>
+      <tr><td>/26</td><td>255.255.255.192</td><td>۶۴</td><td>۶۲</td></tr>
+      <tr><td>/27</td><td>255.255.255.224</td><td>۳۲</td><td>۳۰</td></tr>
+      <tr><td>/28</td><td>255.255.255.240</td><td>۱۶</td><td>۱۴</td></tr>
+      <tr><td>/29</td><td>255.255.255.248</td><td>۸</td><td>۶</td></tr>
+      <tr><td>/30</td><td>255.255.255.252</td><td>۴</td><td>۲</td></tr>
+      <tr><td>/23</td><td>255.255.254.0</td><td>۵۱۲</td><td>۵۱۰</td></tr>
+      <tr><td>/22</td><td>255.255.252.0</td><td>۱۰۲۴</td><td>۱۰۲۲</td></tr>
+      <tr><td>/16</td><td>255.255.0.0</td><td>۶۵۵۳۶</td><td>۶۵۵۳۴</td></tr>
+    </table>
+  </div>
+
+  <div class="cmd" data-t="# محاسبه ساب‌نت با sipcalc"><pre>sipcalc 192.168.1.0/24
+sipcalc 10.0.0.0/8</pre></div>
+
+  <div class="cmd" data-t="# محاسبه با ipcalc"><pre>ipcalc 192.168.1.0/27</pre></div>
+
+  <div class="note">💡 <b>فرمول طلایی:</b> تعداد Host = 2^(32-CIDR) - 2. مثلاً /24 = 2^(8)-2 = 254 host. منهای دو تا برای Network ID و Broadcast.</div>
+
+  <h3>مثال عملی ساب‌نتینگ</h3>
+  <p>فرض کن 192.168.1.0/24 داری و باید ۴ شبکه جدا با ۳۰ تا host بسازی:</p>
+  <ul>
+    <li>شبکه ۱: 192.168.1.0/27 (۱-۳۰) — 192.168.1.0 Network, 192.168.1.31 Broadcast</li>
+    <li>شبکه ۲: 192.168.1.32/27 (۳۳-۶۲)</li>
+    <li>شبکه ۳: 192.168.1.64/27 (۶۵-۹۴)</li>
+    <li>شبکه ۴: 192.168.1.96/27 (۹۷-۱۲۶)</li>
+  </ul>
+
+  <div class="quiz">
+    <div class="quiz-title">🧪 کوییز کوتاه</div>
+    <div class="q">
+      <div class="q-t">۱) در یک شبکه /28 چند host قابل استفاده داریم؟</div>
+      <label><input type="radio" name="no3" value="a"> ۶</label>
+      <label><input type="radio" name="no3" value="b"> ۱۴</label>
+      <label><input type="radio" name="no3" value="c"> ۳۰</label>
+      <label><input type="radio" name="no3" value="d"> ۶۲</label>
+      <div class="q-actions"><button class="btn-mini q-check" data-ans="b">✅ بررسی</button><button class="btn-mini q-reveal">👁️ جواب</button></div>
+      <div class="q-fb" role="status"></div>
+      <div class="q-ans" hidden><b>جواب: ۱۴.</b> 2^(32-28)=16. منهای Network ID و Broadcast = 14.</div>
+    </div>
+    <div class="q">
+      <div class="q-t">۲) آدرس 192.168.1.255 در شبکه /24 چیست؟</div>
+      <label><input type="radio" name="no4" value="a"> Network ID</label>
+      <label><input type="radio" name="no4" value="b"> Broadcast</label>
+      <label><input type="radio" name="no4" value="c"> Gateway</label>
+      <label><input type="radio" name="no4" value="d"> Host</label>
+      <div class="q-actions"><button class="btn-mini q-check" data-ans="b">✅ بررسی</button><button class="btn-mini q-reveal">👁️ جواب</button></div>
+      <div class="q-ans" hidden><b>جواب: Broadcast.</b> آخرین آدرس هر subnet آدرس Broadcast است.</div>
+    </div>
+  </div>
+</section>
+
+<!-- ۴. MAC و ARP -->
+<section id="mac">
+  <div class="sec-head"><div class="sec-icon">🏷️</div><h2>MAC Address و ARP Protocol</h2><span class="tag">لایه ۲</span></div>
+  <p><span class="hw">***MAC Address***</span> <span class="hwdef">= Media Access Control: آدرس فیزیکی ۶ بایتی منحصربه‌فرد که روی کارت شبکه هر دستگاه ذخیره شده (مثل 00:1A:2B:3C:4D:5E)</span>. برخلاف IP که منطقی و قابل تغییره، MAC فیزیکی و (باید) یکتاست.</p>
+  <p><span class="hw">***ARP***</span> <span class="hwdef">= Address Resolution Protocol: پروتکلی که آدرس IP رو به MAC تبدیل می‌کنه — "کی IP 192.168.1.1 رو داره؟ میشه MAC‌ت رو بهم بگی؟"</span></p>
+
+  <div class="cmd" data-t="# مشاهده جدول ARP"><pre>arp -a   # ویندوز/لینوکس
+# مثال:
+# 192.168.1.1    00-1A-2B-3C-4D-5E     dynamic</pre></div>
+
+  <div class="cmd" data-t="# مشاهده MAC خود"><pre>ip link show   # لینوکس
+ipconfig /all  # ویندوز (جستجوی Physical Address)</pre></div>
+
+  <div class="warn">⚠️ <b>حملات ARP:</b> ARP Spoofing یا ARP Poisoning یکی از خطرناک‌ترین حملات لایه ۲ — هکر می‌تونه خودش رو جای Gateway جا بزنه و همه ترافیک رو بشنوه (MITM). جلوی این حمله با <b>Dynamic ARP Inspection (DAI)</b> و <b>IP Source Guard</b> گرفته می‌شه.</div>
+  <div class="cmd" data-t="# اسکن ARP برای شناسایی دستگاه‌ها"><pre>arp-scan --local   # لینوکس
+# دستگاه‌های موجود در شبکه محلی را نشان می‌دهد</pre></div>
+  <div class="tip">💡 اگه هکر باشی، <b>ARP Spoofing</b> اولین تکنیکی‌ه که برای حمله در شبکه‌های محلی امتحان می‌کنی — با ابزارهایی مثل Bettercap, Ettercap, arpspoof.</div>
+</section>
+
+<!-- ۵. سوئیچینگ -->
+<section id="switch">
+  <div class="sec-head"><div class="sec-icon">🔌</div><h2>سوئیچینگ — چطور دستگاه‌ها همدیگه رو پیدا می‌کنن؟</h2><span class="tag">لایه ۲</span></div>
+  <p><span class="hw">***سوئیچ (Switch)***</span> <span class="hwdef">= دستگاهی در لایه ۲ که با استفاده از MAC Address جدول (CAM Table) پکت‌ها رو به پورت مقصد هدایت می‌کنه</span>. برخلاف Hub که به همه پورت‌ها می‌فرسته، سوئیچ فقط به پورت مقصد می‌فرسته.</p>
+
+  <h3>مفاهیم کلیدی سوئیچینگ</h3>
+  <ul>
+    <li><b>MAC Table (CAM Table):</b> جدولی که MACها رو به پورت‌ها وصل می‌کنه</li>
+    <li><b>Flooding:</b> وقتی MAC مقصد تو جدول نیست، به همه پورت‌ها می‌فرسته (جز پورت مبدأ)</li>
+    <li><b>Learning:</b> سوئیچ MAC مبدأ رو یاد می‌گیره و به جدول اضافه می‌کنه</li>
+    <li><b>Forwarding/Filtering:</b> تصمیم‌گیری ارسال یا مسدود کردن</li>
+    <li><b>Broadcast Domain:</b> همه دستگاه‌هایی که broadcast رو دریافت می‌کنن</li>
+  </ul>
+
+  <h3>حملات به سوئیچ</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>حمله</th><th>روش</th><th>دفاع</th></tr>
+      <tr><td>MAC Flooding</td><td>پر کردن CAM Table با MACهای جعلی</td><td>Port Security</td></tr>
+      <tr><td>STP Manipulation</td><td>تغییر Spanning Tree برای MITM</td><td>BPDU Guard, Root Guard</td></tr>
+      <tr><td>VLAN Hopping</td><td>پریدن از یک VLAN به VLAN دیگر</td><td>Disable DTP, Native VLAN تغییر</td></tr>
+      <tr><td>ARP Spoofing</td><td>جعل ARP برای MITM</td><td>DAI, IP Source Guard</td></tr>
+    </table>
+  </div>
+  <div class="cmd" data-t="# نمایش MAC Table (در سوئیچ سیسکو)"><pre>show mac address-table
+# یا: show mac address-table dynamic</pre></div>
+  <div class="tip">💡 برای یه تست‌کننده نفوذ، فهمیدن این که چطور سوئیچ کار می‌کنه یعنی می‌دونی چطور ازش بزنی بیرون یا چطور detection رو دور بزنی.</div>
+</section>
+
+<!-- ۶. VLAN -->
+<section id="vlan">
+  <div class="sec-head"><div class="sec-icon">🧱</div><h2>VLAN — شبکه‌های مجازی مجزا</h2><span class="tag">جداسازی</span></div>
+  <p><span class="hw">***VLAN***</span> <span class="hwdef">= Virtual Local Area Network: تقسیم یک شبکه فیزیکی به چند شبکه منطقی مجزا — دستگاه‌های توی VLANهای مختلف بدون روتر نمی‌تونن با هم حرف بزنن</span>. مثل اینه که چند تا سوئیچ مجازی توی یه سوئیچ فیزیکی داشته باشی.</p>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>VLAN</th><th>نام</th><th>کاربرد</th></tr>
+      <tr><td>۱</td><td>Default (Native)</td><td>پیش‌فرض — توصیه نمی‌شه تغییرش بدی</td></tr>
+      <tr><td>۱۰</td><td>Management</td><td>مدیریت سوئیچ/روتر</td></tr>
+      <tr><td>۲۰</td><td>Users</td><td>کاربران عادی</td></tr>
+      <tr><td>۳۰</td><td>Servers</td><td>سرورها (ایمن‌تر)</td></tr>
+      <tr><td>۹۹</td><td>Voice</td><td>VoIP</td></tr>
+      <tr><td>۴۰۹۵</td><td>Extended</td><td>VLANهای بالا (۴۰۹۶ عدد)</td></tr>
+    </table>
+  </div>
+
+  <h3>Trunk — اتصال بین سوئیچ‌ها</h3>
+  <p>وقتی می‌خوای چند VLAN رو بین دو سوئیچ منتقل کنی، از <b>Trunk Port</b> استفاده می‌کنی. پروتکل <span class="hw">***802.1Q***</span> <span class="hwdef">= استاندارد Tagging VLAN — یه تگ ۴ بایتی به فریم اضافه می‌کنه تا مشخص کنه این فریم مال کدوم VLAN هست</span> روی لینک Trunk استفاده می‌شه.</p>
+
+  <div class="cmd" data-t="# تنظیم VLAN در سیسکو"><pre>enable
+configure terminal
+vlan 20
+ name USERS
+exit
+interface fastEthernet 0/1
+ switchport mode access
+ switchport access vlan 20</pre></div>
+
+  <div class="note">⚠️ <b>VLAN Hopping:</b> مهاجم می‌تونه با سوئیچ‌گرام جعلی (DTP) به VLANهای دیگه نفوذ کنه. همیشه DTP رو روی سوئیچ غیرفعال کن: <code>switchport mode access</code> + <code>switchport nonegotiate</code></div>
+</section>
+
+<!-- ۷. مسیریابی -->
+<section id="routing">
+  <div class="sec-head"><div class="sec-icon">🧭</div><h2>راوترینگ (Routing) — چطور داده به مقصد می‌رسه؟</h2><span class="tag">لایه ۳</span></div>
+  <p><span class="hw">***Routing***</span> <span class="hwdef">= فرآیند انتخاب بهترین مسیر برای رسیدن بسته از مبدأ به مقصد در یک شبکه وسیع (WAN/Internet)</span>. روترها با استفاده از <b>Routing Table</b> تصمیم می‌گیرن بسته رو به کجا بفرستن.</p>
+
+  <h3>انواع مسیریابی</h3>
+  <ul>
+    <li><b>Static Routing:</b> مسیر رو دستی توی روتر می‌نویسی — برای شبکه‌های کوچک</li>
+    <li><b>Dynamic Routing:</b> روترها خودشون مسیر رو یاد می‌گیرن با پروتکل‌هایی مثل OSPF, EIGRP, BGP</li>
+    <li><b>Default Route:</b> 0.0.0.0/0 — "بقیه رو بفرست به اینجا" (Gateway)</li>
+  </ul>
+
+  <div class="cmd" data-t="# نمایش Routing Table (لینوکس)"><pre>ip route show
+route -n</pre></div>
+
+  <div class="cmd" data-t="# نمایش Routing Table (سیسکو)"><pre>show ip route</pre></div>
+
+  <h3>جدول ساده پروتکل‌های مسیریابی</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>پروتکل</th><th>نوع</th><th>متریک</th><th>کاربرد</th></tr>
+      <tr><td>OSPF</td><td>Link State</td><td>Cost (بر اساس پهنای باند)</td><td>شبکه‌های بزرگ داخلی</td></tr>
+      <tr><td>EIGRP</td><td>Hybrid</td><td>Bandwidth + Delay</td><td>سیسکو فقط — بسیار سریع</td></tr>
+      <tr><td>RIP</td><td>Distance Vector</td><td>Hop Count</td><td>قدیمی — تا ۱۵ hop</td></tr>
+      <tr><td>BGP</td><td>Path Vector</td><td>AS Path</td><td>بین ISPها (اینترنت)</td></tr>
+      <tr><td>IS-IS</td><td>Link State</td><td>Metric</td><td>ISPهای بزرگ</td></tr>
+    </table>
+  </div>
+
+  <div class="cmd" data-t="# traceroute — دنبال کردن مسیر"><pre>traceroute google.com    # لینوکس
+tracert google.com       # ویندوز</pre></div>
+
+  <div class="tip">💡 برای تست‌کننده نفوذ، فهمیدن Routing یعنی می‌دونی ترافیک از کجا می‌گذره و کجا می‌تونی شنود کنی یا Redirect.</div>
+</section>
+
+<!-- ۸. پروتکل‌های کلیدی -->
+<section id="protocols">
+  <div class="sec-head"><div class="sec-icon">📡</div><h2>پروتکل‌های کلیدی و پورت‌های آنها</h2><span class="tag">باید حفظ باشی</span></div>
+  <p>این جدول رو برای تست نفوذت حفظ کن — هر تست نفوذی با شناخت این پورت‌ها شروع می‌شه:</p>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>پورت</th><th>پروتکل</th><th>کاربرد</th><th>حملات مرتبط</th></tr>
+      <tr><td>20/21</td><td>FTP</td><td>انتقال فایل</td><td>Brute Force, Anonymous</td></tr>
+      <tr><td>22</td><td>SSH</td><td>ورود امن از راه دور</td><td>Brute Force, weak keys</td></tr>
+      <tr><td>23</td><td>Telnet</td><td>ورود از راه دور (غیرامن)</td><td>شنود ترافیک متنی</td></tr>
+      <tr><td>25</td><td>SMTP</td><td>ارسال ایمیل</td><td>Spam Relay, Enumeration</td></tr>
+      <tr><td>53</td><td>DNS</td><td>تبدیل نام به IP</td><td>DNS Poisoning, Zone Transfer</td></tr>
+      <tr><td>67/68</td><td>DHCP</td><td>تخصیص IP خودکار</td><td>DHCP Starvation, Rogue DHCP</td></tr>
+      <tr><td>80</td><td>HTTP</td><td>وب</td><td>SQLi, XSS, Brute Force</td></tr>
+      <tr><td>110</td><td>POP3</td><td>دریافت ایمیل</td><td>Brute Force, Sniff</td></tr>
+      <tr><td>135</td><td>RPC</td><td>ویندوز Remote Procedure Call</td><td>MSRPC Enumeration</td></tr>
+      <tr><td>139/445</td><td>SMB</td><td>اشتراک فایل ویندوز</td><td>EternalBlue, SMBGhost</td></tr>
+      <tr><td>143</td><td>IMAP</td><td>ایمیل مدرن</td><td>Brute Force</td></tr>
+      <tr><td>161/162</td><td>SNMP</td><td>مدیریت شبکه</td><td>Community String Weak</td></tr>
+      <tr><td>443</td><td>HTTPS</td><td>وب امن</td><td>Weak SSL, Heartbleed</td></tr>
+      <tr><td>445</td><td>SMB</td><td>فایل و چاپگر</td><td>EternalBlue</td></tr>
+      <tr><td>1433</td><td>MSSQL</td><td>پایگاه داده</td><td>Brute Force, SA blank pass</td></tr>
+      <tr><td>1521</td><td>Oracle</td><td>پایگاه داده</td><td>Brute, TNS Poison</td></tr>
+      <tr><td>2049</td><td>NFS</td><td>اشتراک فایل لینوکس</td><td>showmount, misconfig</td></tr>
+      <tr><td>3306</td><td>MySQL</td><td>پایگاه داده</td><td>Brute, root@localhost</td></tr>
+      <tr><td>3389</td><td>RDP</td><td>دسکتاپ از راه دور</td><td>BlueKeep, Brute Force</td></tr>
+      <tr><td>5432</td><td>PostgreSQL</td><td>پایگاه داده</td><td>Brute, weak config</td></tr>
+      <tr><td>5900</td><td>VNC</td><td>مشارکت دسکتاپ</td><td>No auth, Brute</td></tr>
+      <tr><td>6379</td><td>Redis</td><td>کش</td><td>RCE بدون auth</td></tr>
+      <tr><td>8080</td><td>HTTP-Alt</td><td>پروکسی/وب جایگزین</td><td>Same as HTTP</td></tr>
+      <tr><td>8443</td><td>HTTPS-Alt</td><td>وب امن جایگزین</td><td>Same as HTTPS</td></tr>
+      <tr><td>27017</td><td>MongoDB</td><td>پایگاه داده NoSQL</td><td>No auth by default</td></tr>
+    </table>
+  </div>
+  <div class="note">💡 این ۲۵ پورت مهم‌ترین پورت‌ها برای تست نفوذ هستن — بقیه رو با <code>nmap -p- target</code> پیدا کن.</div>
+</section>
+
+<!-- ۹. DNS -->
+<section id="dns">
+  <div class="sec-head"><div class="sec-icon">🔤</div><h2>DNS — سیستم نام‌گذاری دامنه</h2><span class="tag">حیاتی</span></div>
+  <p><span class="hw">***DNS***</span> <span class="hwdef">= Domain Name System: سیستمی که نام دامنه (مثل google.com) رو به IP (مثل 142.250.185.46) تبدیل می‌کنه — کتاب تلفن اینترنت</span></p>
+
+  <h3>انواع رکوردهای DNS</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>رکورد</th><th>کاربرد</th><th>مثال</th></tr>
+      <tr><td>A</td><td>IPv4</td><td>google.com → 142.250.185.46</td></tr>
+      <tr><td>AAAA</td><td>IPv6</td><td>google.com → 2a00:1450:4009:81d::200e</td></tr>
+      <tr><td>CNAME</td><td>نام مستعار</td><td>www → example.com</td></tr>
+      <tr><td>MX</td><td>سرور ایمیل</td><td>Priority 10 → mail.google.com</td></tr>
+      <tr><td>NS</td><td>سرور نام (DNS Server)</td><td>ns1.google.com</td></tr>
+      <tr><td>TXT</td><td>متن (SPF, DKIM)</td><td>v=spf1 include:_spf.google.com ~all</td></tr>
+      <tr><td>SOA</td><td>Authority — اطلاعات اصلی دامنه</td><td>مدیر، refresh, retry, expire</td></tr>
+      <tr><td>PTR</td><td>معکوس (IP → Name)</td><td>142.250.185.46 → google.com</td></tr>
+    </table>
+  </div>
+
+  <div class="cmd" data-t="# ابزارهای DNS مهم برای تست نفوذ"><pre>nslookup google.com               # پرس و جوی ساده
+dig google.com ANY                # همه رکوردها
+dig -x 142.250.185.46             # PTR (معکوس)
+host -t mx google.com             # MX record
+dnsrecon -d example.com -t axfr   # Zone Transfer (آسیب‌پذیری)</pre></div>
+
+  <div class="warn">⚠️ <b>Zone Transfer:</b> اگه DNS سرور به اشتباه Zone Transfer رو به همه اجازه بده، کل نقشه‌ی دامنه‌ات رو می‌تونی بده! با <code>dnsrecon</code> یا <code>dig axfr</code> امتحان کن.</div>
+</section>
+
+<!-- ۱۰. DHCP -->
+<section id="dhcp">
+  <div class="sec-head"><div class="sec-icon">📬</div><h2>DHCP — تخصیص خودکار آدرس IP</h2><span class="tag">لایه ۲/۳</span></div>
+  <p><span class="hw">***DHCP***</span> <span class="hwdef">= Dynamic Host Configuration Protocol: پروتکلی که خودکار به دستگاه‌های متصل به شبکه، IP، subnet mask، gateway و DNS می‌ده</span>. چهار مرحله اصلی: <b>DORA</b> — Discover, Offer, Request, Acknowledge.</p>
+
+  <h3>مراحل DORA</h3>
+  <ol>
+    <li><b>Discover:</b> کلاینت می‌گه "یکی منو پیدا کنه!" (Broadcast)</li>
+    <li><b>Offer:</b> سرور DHCP می‌گه "بیا این IP رو بگیر"</li>
+    <li><b>Request:</b> کلاینت می‌گه "همین IP رو می‌خوام"</li>
+    <li><b>Acknowledge:</b> سرور می‌گه "مال تو!"</li>
+  </ol>
+
+  <div class="cmd" data-t="# دیدن IP اختصاصی DHCP"><pre>dhclient -v eth0   # لینوکس — درخواست IP جدید
+ip addr show eth0  # نمایش IP فعلی</pre></div>
+
+  <div class="cmd" data-t="# حمله Rogue DHCP"><pre># با Yersinia یا Bettercap می‌تونی DHCP جعلی راه بندازی:
+bettercap -eval "set dhcpd.enable true; set dhcpd.range 192.168.1.100-192.168.1.200; dhcpd on"
+# این رو در شبکه‌های آزمایشی خودت انجام بده</pre></div>
+
+  <div class="warn">⚠️ <b>Rogue DHCP Server:</b> هکر با راه‌اندازی یک DHCP جعلی می‌تونه به دستگاه‌ها Gateway جعلی بده و همه ترافیک رو بشنوه. دفاع: DHCP Snooping در سوئیچ‌ها.</div>
+</section>
+
+<!-- ۱۱. NAT -->
+<section id="nat">
+  <div class="sec-head"><div class="sec-icon">🔄</div><h2>NAT — ترجمه آدرس شبکه</h2><span class="tag">لایه ۳</span></div>
+  <p><span class="hw">***NAT***</span> <span class="hwdef">= Network Address Translation: تکنیکی که IP خصوصی (داخلی) رو به IP عمومی (خارجی) تبدیل می‌کنه تا چندتا دستگاه بتونن با یه IP عمومی به اینترنت وصل بشن</span>. مودم خونه‌ت رو نگاه کن — NAT داره.</p>
+
+  <h3>انواع NAT</h3>
+  <ul>
+    <li><b>SNAT (Source NAT):</b> تغییر IP مبدأ — معمولاً توسط روتر خونه انجام می‌شه (Masquerade)</li>
+    <li><b>DNAT (Destination NAT):</b> تغییر IP مقصد — پورت فورواردینگ (Port Forwarding)</li>
+    <li><b>PAT (Port Address Translation):</b> چندتا دستگاه از یه IP عمومی با پورت‌های مختلف استفاده می‌کنن</li>
+    <li><b>Static NAT:</b> یک به یک بین IP خصوصی و عمومی</li>
+  </ul>
+
+  <div class="cmd" data-t="# تنظیم NAT با iptables"><pre># SNAT (Masquerade):
+iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE
+
+# DNAT (Port Forward):
+iptables -t nat -A PREROUTING -p tcp --dport 80 -i eth0 -j DNAT --to-destination 192.168.1.100:80</pre></div>
+
+  <div class="tip">💡 برای تست‌کننده نفوذ، NAT به معنی <b>پایان شبکه داخلیست</b> — اگه پشت NAT باشی نمی‌تونی مستقیم پیلود Reverse بگیری مگر اینکه از UPnP یا Port Forwarding استفاده کنی.</div>
+</section>
+
+<!-- ۱۲. وایرلس -->
+<section id="wifi">
+  <div class="sec-head"><div class="sec-icon">📶</div><h2>شبکه‌های وایرلس (Wi-Fi)</h2><span class="tag">لایه ۱/۲</span></div>
+  <p><span class="hw">***Wi-Fi***</span> <span class="hwdef">= Wireless Fidelity: خانواده‌ای از استانداردهای IEEE 802.11 برای شبکه‌های بیسیم محلی</span>. فرکانس‌های ۲.۴GHz و ۵GHz و جدیداً ۶GHz (Wi-Fi 6E).</p>
+
+  <h3>استانداردهای Wi-Fi</h3>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>استاندارد</th><th>نام تجاری</th><th>فرکانس</th><th>حداکثر سرعت نظری</th></tr>
+      <tr><td>802.11b</td><td>-</td><td>۲.۴GHz</td><td>۱۱ مگابیت</td></tr>
+      <tr><td>802.11g</td><td>-</td><td>۲.۴GHz</td><td>۵۴ مگابیت</td></tr>
+      <tr><td>802.11n</td><td>Wi-Fi 4</td><td>۲.۴/۵GHz</td><td>۶۰۰ مگابیت</td></tr>
+      <tr><td>802.11ac</td><td>Wi-Fi 5</td><td>۵GHz</td><td>۱.۳ گیگابیت</td></tr>
+      <tr><td>802.11ax</td><td>Wi-Fi 6</td><td>۲.۴/۵/۶GHz</td><td>۹.۶ گیگابیت</td></tr>
+    </table>
+  </div>
+
+  <h3>امنیت وایرلس</h3>
+  <ul>
+    <li><b>WEP:</b> شکسته شده — فقط چند دقیقه طول می‌کشه تا کرک بشه (<b>هیچوقت استفاده نکن</b>)</li>
+    <li><b>WPA/WPA2:</b> امن‌تر ولی با حمله‌ی <b>WPA Handshake Capture + Brute Force</b> یا <b>PMKID</b> شکسته می‌شه</li>
+    <li><b>WPA3:</b> جدیدترین و امن‌ترین — هنوز حملات محدودی مثل Dragonblood</li>
+  </ul>
+
+  <div class="cmd" data-t="# دیدن شبکه‌های وایرلس اطراف"><pre>iw dev wlan0 scan | grep SSID
+# یا:
+nmcli dev wifi list</pre></div>
+
+  <div class="cmd" data-t="# شروع مانیتور مود (برای Aircrack)"><pre>sudo airmon-ng start wlan0
+# اینترفیس به wlan0mon تغییر می‌کنه
+sudo airodump-ng wlan0mon</pre></div>
+
+  <div class="tip">💡 دوره کامل Wi-Fi Hacking توی فایل جداگانه موجوده — اینجا فقط مبانی رو یاد بگیر.</div>
+</section>
+
+<!-- ۱۳. فیبر نوری و کابل‌ها -->
+<section id="fiber">
+  <div class="sec-head"><div class="sec-icon">🔦</div><h2>کابل‌شناسی — مسی، فیبر نوری، کواکسیال</h2><span class="tag">لایه ۱</span></div>
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>نوع کابل</th><th>حداکثر طول</th><th>سرعت</th><th>کاربرد</th></tr>
+      <tr><td>Cat5e (Twisted Pair)</td><td>۱۰۰ متر</td><td>۱ گیگابیت</td><td>شبکه‌های معمولی</td></tr>
+      <tr><td>Cat6</td><td>۱۰۰ متر (۵۵ متر برای ۱۰G)</td><td>۱-۱۰ گیگابیت</td><td>شبکه‌های پرسرعت</td></tr>
+      <tr><td>Cat6a</td><td>۱۰۰ متر</td><td>۱۰ گیگابیت</td><td>دیتاسنترها</td></tr>
+      <tr><td>Cat7</td><td>۱۰۰ متر</td><td>۱۰ گیگابیت</td><td>محافظ‌دار (Shielded)</td></tr>
+      <tr><td>Cat8</td><td>۳۰ متر</td><td>۲۵-۴۰ گیگابیت</td><td>دیتاسنترهای جدید</td></tr>
+      <tr><td>فیبر تک‌مود (Single Mode)</td><td>تا ۱۰۰ کیلومتر</td><td>تا ۱۰۰ گیگابیت+</td><td>ISP، مسافت طولانی</td></tr>
+      <tr><td>فیبر چند-مود (Multi Mode)</td><td>تا ۲ کیلومتر</td><td>تا ۴۰ گیگابیت</td><td>دیتاسنتر محلی</td></tr>
+      <tr><td>Coaxial (کواکسیال)</td><td>تا ۵۰۰ متر</td><td>تا ۵۰ مگابیت</td><td>اینترنت کابلی (قدیمی)</td></tr>
+    </table>
+  </div>
+  <p>کابل‌های <b>Cross-over</b> (مستقیم به مستقیم) و <b>Straight-through</b> (مستقیم به سوئیچ) رو بشناس. امروزه اکثر دستگاه‌ها Auto MDI-X دارن و فرقی نمی‌کنه.</p>
+</section>
+
+<!-- ۱۴. امنیت شبکه -->
+<section id="sec">
+  <div class="sec-head"><div class="sec-icon">🛡️</div><h2>امنیت شبکه — مفاهیم پایه</h2><span class="tag">حفاظت</span></div>
+  <p>شبکه‌ها بدون امنیت مثل خونه‌ای هستن که درش بازه — این ابزارهای دفاعی رو یاد بگیر:</p>
+
+  <h3>Firewall — فایروال</h3>
+  <p>فایروال ترافیک رو بر اساس قوانین (Rules) مسدود یا مجاز می‌کنه. انواع:</p>
+  <ul>
+    <li><b>Packet Filtering (Stateless):</b> چک کردن IP و پورت مبدأ/مقصد — ساده ولی ضعیف</li>
+    <li><b>Stateful Firewall:</b> وضعیت اتصال رو نگه می‌داره (باهوش‌تر)</li>
+    <li><b>Next-Gen (NGFW):</b> تشخیص برنامه (Application ID) و کاربر (User ID)</li>
+    <li><b>Web Application Firewall (WAF):</b> محافظ وب — مثل Cloudflare, Wordfence</li>
+  </ul>
+
+  <h3>IDS / IPS</h3>
+  <ul>
+    <li><b>IDS (Intrusion Detection System):</b> تشخیص نفوذ — هشدار می‌ده</li>
+    <li><b>IPS (Intrusion Prevention System):</b> جلوگیری از نفوذ — بلوک می‌کنه</li>
+  </ul>
+
+  <h3>VPN — شبکه خصوصی مجازی</h3>
+  <p>رمزگذاری تمام ترافیک بین دو نقطه. انواع: IPsec, OpenVPN, WireGuard. در تست نفوذ برای مخفی کردن IP (زنجیره‌ای) استفاده می‌شه.</p>
+
+  <h3>ACL (Access Control List)</h3>
+  <p>لیست مجوزها روی روتر/سوئیچ/فایروال — "کی به کجا می‌تونه دسترسی داشته باشه". انواع استاندارد (IP مبدأ) و توسعه‌یافته (IP+Port مبدأ/مقصد).</p>
+
+  <div class="cmd" data-t="# ACL ساده روی سیسکو"><pre>access-list 100 permit tcp 192.168.1.0 0.0.0.255 host 10.0.0.1 eq 443
+access-list 100 deny ip any any
+interface gigabitEthernet 0/0
+ip access-group 100 in</pre></div>
+
+  <div class="note">💡 برای یه تست‌کننده نفوذ، درک ACL یعنی می‌دونی چطور مسیرهای عبور رو پیدا کنی و از کجا رد بشی.</div>
+</section>
+
+<!-- ۱۵. عیب‌یابی -->
+<section id="trouble">
+  <div class="sec-head"><div class="sec-icon">🛠️</div><h2>عیب‌یابی شبکه — ابزارهای ضروری</h2><span class="tag">مهارت نجات</span></div>
+  <p>وقتی شبکه باگ داره — این دستورات رو به ترتیب بزن:</p>
+
+  <h3>۱) ping — آیا دستگاه جواب می‌ده؟</h3>
+  <div class="cmd" data-t="# تست اتصال پایه"><pre>ping 192.168.1.1
+ping -c 4 google.com</pre></div>
+
+  <h3>۲) ipconfig / ip addr — آدرس IP من چیه؟</h3>
+  <div class="cmd" data-t="# نمایش IP"><pre>ip addr show       # لینوکس
+ipconfig           # ویندوز</pre></div>
+
+  <h3>۳) traceroute / tracert — مسیر کجاست؟</h3>
+  <div class="cmd" data-t="# دنبال کردن مسیر"><pre>traceroute google.com   # لینوکس
+tracert google.com      # ویندوز</pre></div>
+
+  <h3>۴) netstat / ss — چه پورت‌هایی بازه؟</h3>
+  <div class="cmd" data-t="# نمایش پورت‌های باز"><pre>netstat -tulpn   # لینوکس — همه پورت‌های listening
+ss -tulpn        # جدیدتر و سریع‌تر
+netstat -ano     # ویندوز</pre></div>
+
+  <h3>۵) nmap — اسکنر شبکه</h3>
+  <div class="cmd" data-t="# اسکن سریع شبکه"><pre>nmap -sn 192.168.1.0/24   # Ping Sweep — کشف دستگاه‌ها
+nmap -sV 192.168.1.1      # شناسایی سرویس</pre></div>
+
+  <h3>۶) tcpdump / Wireshark — شنود ترافیک</h3>
+  <div class="cmd" data-t="# شنود بسته‌ها (پیشرفته)"><pre>sudo tcpdump -i eth0 -n
+sudo tcpdump -i eth0 port 80 -X   # ترافیک HTTP رو نشون بده</pre></div>
+
+  <div class="tbl-wrap">
+    <table>
+      <tr><th>مرحله</th><th>دستور</th><th>مشکل احتمالی</th></tr>
+      <tr><td>۱</td><td><code>ping</code></td><td>کابل، NIC، IP</td></tr>
+      <tr><td>۲</td><td><code>ip route</code></td><td>Gateway اشتباه</td></tr>
+      <tr><td>۳</td><td><code>traceroute</code></td><td>روتر خراب یا فایروال</td></tr>
+      <tr><td>۴</td><td><code>nmap</code></td><td>سرویس بسته، پورت فیلتر</td></tr>
+      <tr><td>۵</td><td><code>tcpdump</code></td><td>مسیر اشتباه، DNS خراب</td></tr>
+    </table>
+  </div>
+
+  <div class="tip">💡 <b>قانون: لایه به لایه بالا برو!</b> اول لایه ۱ (فیزیکی)، بعد ۲ (MAC)، بعد ۳ (IP) — اینطوری سریع مشکل رو پیدا می‌کنی.</div>
+</section>
+
+<!-- ۱۶. چک‌لیست تمرین -->
+<section id="checklist">
+  <div class="sec-head"><div class="sec-icon">✅</div><h2>چک‌لیست تمرین نتورک</h2><span class="tag">پیگیری</span></div>
+  <ul class="chk-list" id="netChecklist">
+    <li><label><input type="checkbox" data-key="nt1"><span>تشریح کامل ۷ لایه OSI و ۴ لایه TCP/IP</span></label></li>
+    <li><label><input type="checkbox" data-key="nt2"><span>تفاوت TCP و UDP را بدانم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt3"><span>ساب‌نتینگ /۲۴ تا /۳۰ را مسلط باشم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt4"><span>آدرس‌های خصوصی و عمومی رو تشخیص بدم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt5"><span>جدول ARP را ببینم و معنی آن را بدانم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt6"><span>پروتکل‌های مسیریابی OSPF, EIGRP, BGP را بشناسم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt7"><span>پورت‌های معروف (۲۵ تای اول) را حفظ باشم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt8"><span>DNS Query با dig و nslookup بزنم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt9"><span>Zone Transfer را امتحان کنم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt10"><span>مراحل DORA در DHCP را توضیح دهم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt11"><span>NAT چیست و چطور کار می‌کند (SNAT, DNAT)</span></label></li>
+    <li><label><input type="checkbox" data-key="nt12"><span>VLAN چیست و Trunk چطور کار می‌کند</span></label></li>
+    <li><label><input type="checkbox" data-key="nt13"><span>VLAN Hopping و ARP Spoofing را بشناسم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt14"><span>traceroute / ping / netstat / ip addr را عملی بدانم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt15"><span>Wi-Fi استانداردها (a/b/g/n/ac/ax) را بشناسم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt16"><span>تفاوت IDS و IPS را بدانم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt17"><span>ACL را درک کنم</span></label></li>
+    <li><label><input type="checkbox" data-key="nt18"><span>کابل‌های Cat5e, Cat6, فیبر نوری را بشناسم</span></label></li>
+  </ul>
+  <div class="chk-actions"><button class="btn-mini" id="resetChkNet">🔄 ریست چک‌لیست</button></div>
+</section>
+
+<!-- واژه‌نامه -->
+<section id="glossary">
+  <div class="sec-head"><div class="sec-icon">📖</div><h2>واژه‌نامه شبکه</h2><span class="tag">مرجع</span></div>
+  <div class="gloss">
+    <div class="gloss-item"><b>IP Address</b><span>آدرس منطقی ۳۲ بیتی (IPv4) یا ۱۲۸ بیتی (IPv6) برای شناسایی دستگاه در شبکه</span></div>
+    <div class="gloss-item"><b>MAC Address</b><span>آدرس فیزیکی ۶ بایتی کارت شبکه که در کارخانه روی آن نوشته می‌شود</span></div>
+    <div class="gloss-item"><b>Subnet Mask</b><span>مشخص می‌کند کدام بخش IP مربوط به شبکه و کدام مربوط به host است</span></div>
+    <div class="gloss-item"><b>Gateway</b><span>دروازه‌ای که دستگاه‌ها را به شبکه‌های دیگر (مثل اینترنت) وصل می‌کند</span></div>
+    <div class="gloss-item"><b>Broadcast</b><span>فریمی که به همه دستگاه‌های موجود در یک شبکه فرستاده می‌شود</span></div>
+    <div class="gloss-item"><b>NAT</b><span>ترجمه آدرس خصوصی به عمومی برای اتصال به اینترنت</span></div>
+    <div class="gloss-item"><b>VLAN</b><span>تقسیم یک شبکه فیزیکی به چند شبکه منطقی مجزا</span></div>
+    <div class="gloss-item"><b>Trunk</b><span>لینک بین دو سوئیچ که چندین VLAN را حمل می‌کند</span></div>
+    <div class="gloss-item"><b>ARP</b><span>پروتکل تبدیل IP به MAC در شبکه محلی</span></div>
+    <div class="gloss-item"><b>DNS</b><span>تبدیل نام دامنه به آدرس IP</span></div>
+    <div class="gloss-item"><b>DHCP</b><span>پروتکل تخصیص خودکار آدرس IP</span></div>
+    <div class="gloss-item"><b>OSPF</b><span>پروتکل مسیریابی داخلی (Link State) — استاندارد باز</span></div>
+    <div class="gloss-item"><b>BGP</b><span>پروتکل مسیریابی بین سیستم‌های خودمختار (AS) — ستون فقرات اینترنت</span></div>
+    <div class="gloss-item"><b>Firewall</b><span>سیستم امنیتی که ترافیک را بر اساس قوانین فیلتر می‌کند</span></div>
+    <div class="gloss-item"><b>IDS/IPS</b><span>سیستم تشخیص/جلوگیری از نفوذ</span></div>
+    <div class="gloss-item"><b>WPA3</b><span>جدیدترین استاندارد امنیتی Wi-Fi</span></div>
+  </div>
+</section>
+
+<!-- چیت‌شیت -->
+<section id="cheatsheet">
+  <div class="sec-head"><div class="sec-icon">⚡</div><h2>چیت‌شیت — دستورات ضروری شبکه</h2><span class="tag">راهنما</span></div>
+  <input type="text" id="cheatSearch" placeholder="🔍 توی چیت‌شیت بگرد... (مثلاً arp)" aria-label="جستجوی دستورات">
+  <div id="cheatCount"></div>
+  <div id="cheatContainer">
+  <div class="cmd cheat-item" data-t="# ۱) نمایش IP"><pre>ip addr show; ifconfig</pre></div>
+  <div class="cmd cheat-item" data-t="# ۲) نمایش Routing Table"><pre>ip route show; route -n</pre></div>
+  <div class="cmd cheat-item" data-t="# ۳) پینگ"><pre>ping -c 4 8.8.8.8</pre></div>
+  <div class="cmd cheat-item" data-t="# ۴) دنبال کردن مسیر"><pre>traceroute google.com</pre></div>
+  <div class="cmd cheat-item" data-t="# ۵) نمایش پورت‌های باز"><pre>netstat -tulpn; ss -tulpn</pre></div>
+  <div class="cmd cheat-item" data-t="# ۶) جدول ARP"><pre>arp -a; ip neigh</pre></div>
+  <div class="cmd cheat-item" data-t="# ۷) DNS Lookup"><pre>dig google.com; nslookup google.com</pre></div>
+  <div class="cmd cheat-item" data-t="# ۸) DNS Zone Transfer"><pre>dig axfr @ns1.example.com example.com</pre></div>
+  <div class="cmd cheat-item" data-t="# ۹) تست پورت با nc"><pre>nc -zv 192.168.1.1 22</pre></div>
+  <div class="cmd cheat-item" data-t="# ۱۰) اسکن شبکه با nmap"><pre>nmap -sn 192.168.1.0/24</pre></div>
+  <div class="cmd cheat-item" data-t="# ۱۱) اسکن سرویس با nmap"><pre>nmap -sV 192.168.1.1</pre></div>
+  <div class="cmd cheat-item" data-t="# ۱۲) شنود با tcpdump"><pre>sudo tcpdump -i eth0 -nn port 80</pre></div>
+  <div class="cmd cheat-item" data-t="# ۱۳) نمایش MAC خود"><pre>ip link show; ifconfig | grep ether</pre></div>
+  <div class="cmd cheat-item" data-t="# ۱۴) اسکن ARP با arp-scan"><pre>sudo arp-scan --local</pre></div>
+  <div class="cmd cheat-item" data-t="# ۱۵) نمایش Wi-Fi شبکه‌های اطراف"><pre>nmcli dev wifi list; iw dev wlan0 scan | grep SSID</pre></div>
+  <div class="cmd cheat-item" data-t="# ۱۶) ماشین حساب ساب‌نت"><pre>ipcalc 192.168.1.0/27; sipcalc 192.168.1.0/27</pre></div>
+  <div class="cmd cheat-item" data-t="# ۱۷) رابط DHCP"><pre>dhclient -v eth0</pre></div>
+  <div class="cmd cheat-item" data-t="# ۱۸) iptables NAT"><pre>iptables -t nat -A POSTROUTING -o eth0 -j MASQUERADE</pre></div>
+  </div>
+</section>
+
+<!-- نقشه راه -->
+<section id="roadmap">
+  <div class="sec-head"><div class="sec-icon">🗺️</div><h2>نقشه‌ی راه — از نتورک صفر تا شبکه‌چی حرفه‌ای</h2><span class="tag">مسیر</span></div>
+  <div class="roadmap">
+    <div class="rm-item rm-done"><div class="rm-num">۱</div><div><b>مبانی — OSI, TCP/IP, IP</b><br><small>بخش‌های ۱-۳</small></div></div>
+    <div class="rm-item rm-done"><div class="rm-num">۲</div><div><b>لایه ۲ — سوئیچینگ و VLAN</b><br><small>بخش‌های ۴-۶: MAC, ARP, Switches</small></div></div>
+    <div class="rm-item rm-active"><div class="rm-num">۳</div><div><b>لایه ۳ — مسیریابی</b><br><small>بخش ۷: Static, OSPF, BGP</small></div></div>
+    <div class="rm-item"><div class="rm-num">۴</div><div><b>پروتکل‌ها و خدمات</b><br><small>بخش‌های ۸-۱۱: DNS, DHCP, NAT</small></div></div>
+    <div class="rm-item"><div class="rm-num">۵</div><div><b>امنیت شبکه</b><br><small>بخش ۱۴: Firewall, IDS, ACL</small></div></div>
+    <div class="rm-item"><div class="rm-num">۶</div><div><b>عیب‌یابی و عملیات</b><br><small>بخش ۱۵: ping, traceroute, netstat, tcpdump</small></div></div>
+    <div class="rm-item"><div class="rm-num">۷</div><div><b>گواهینامه Network+</b><br><small>مرور همه مباحث + تست‌های CompTIA Network+</small></div></div>
+    <div class="rm-item"><div class="rm-num">۸</div><div><b>شبکه‌چی حرفه‌ای</b><br><small>CCNA, Linux Networking, SDN, Automation</small></div></div>
+  </div>
+</section>
+
+<!-- جمع‌بندی -->
+<section id="summary">
+  <div class="sec-head"><div class="sec-icon">🏁</div><h2>جمع‌بندی — حالا چی بلدی؟</h2></div>
+  <ul>
+    <li>✅ مدل OSI و TCP/IP — تفاوت لایه‌ها و دستگاه‌ها</li>
+    <li>✅ IP, Subnetting, CIDR — محاسبه سریع ساب‌نت</li>
+    <li>✅ ARP, MAC — نحوه ارتباط در لایه ۲ + حملات</li>
+    <li>✅ سوئیچینگ, VLAN, Trunk — جداسازی شبکه</li>
+    <li>✅ Routing, OSPF, BGP, Static Route</li>
+    <li>✅ DNS, DHCP, NAT — سرویس‌های حیاتی</li>
+    <li>✅ Wi-Fi, کابل‌ها, استانداردها</li>
+    <li>✅ امنیت شبکه و عیب‌یابی</li>
+  </ul>
+  <p>قدم بعدی: برو سراغ <b>CCNA (Cisco)</b> یا <b>CompTIA Network+</b> برای مدرک رسمی. برای تست‌کننده نفوذ، مبانی شبکه کفایت می‌کنه — بقیه رو تو عمل یاد می‌گیری.</p>
+  <div class="ok">🌐 تبریک — تو الان Network Fundamentals رو از ۰ تا ۱۰۰ بلدی! 🚀</div>
+</section>
+
+<footer>
+  <div class="lock">🌐</div>
+  <p>توسعه داده شده با ❤️ برای تست‌کنندگان نفوذ ایرانی | Network Fundamentals</p>
+  <p style="font-size:11px;margin-top:6px">شبکه رو بفهم تا بتونی هکش کنی! همیشه با مجوز کار کن.</p>
+  <p id="persianClock" style="direction:ltr;font-family:'JetBrains Mono',monospace;font-size:11px;margin-top:8px;color:var(--cyan)"></p>
+</footer>
+
+<div id="scrollTop">↑</div>
+
+<script>
+// Matrix Rain
+(function(){const c=document.createElement('canvas');c.id='matrixCanvas';c.style.position='fixed';c.style.inset='0';c.style.zIndex='0';c.style.opacity='0.07';c.style.pointerEvents='none';document.body.insertBefore(c,document.body.firstChild);const w=c.width=window.innerWidth,h=c.height=window.innerHeight,ctx=c.getContext('2d');const cols=Math.floor(w/14),drops=Array(cols).fill(1);const chars='10NETWORKBASICS1010'.split('');function draw(){ctx.fillStyle='rgba(8,12,18,0.04)';ctx.fillRect(0,0,w,h);ctx.fillStyle='#44d9a0';ctx.font='13px monospace';for(let i=0;i<drops.length;i++){const text=chars[Math.floor(Math.random()*chars.length)];ctx.fillText(text,i*14,drops[i]*14);if(drops[i]*14>h||Math.random()>0.975)drops[i]=0;drops[i]++;}}setInterval(draw,55);window.addEventListener('resize',()=>location.reload())})();
+
+// Cursor Glow
+const cg=document.getElementById('cursorGlow');document.addEventListener('mousemove',e=>{cg.style.transform=`translate(${e.clientX-250}px,${e.clientY-250}px)`});
+
+// Theme
+const tt=document.getElementById('themeToggle');const html=document.documentElement;
+(function(){const s=localStorage.getItem('netTheme');if(s){html.setAttribute('data-theme',s);tt.textContent=s==='dark'?'☀️':'🌙'}})();
+tt.onclick=()=>{const cur=html.getAttribute('data-theme');const nxt=cur==='dark'?'light':'dark';html.setAttribute('data-theme',nxt);tt.textContent=nxt==='dark'?'☀️':'🌙';localStorage.setItem('netTheme',nxt);};
+
+// Progress Bar
+const pb=document.getElementById('progressBar');window.addEventListener('scroll',()=>{const dh=document.documentElement.scrollHeight-window.innerHeight;pb.style.width=dh>0?`${(window.scrollY/dh)*100}%`:'0%'});
+
+// Scroll Top
+const st=document.getElementById('scrollTop');window.addEventListener('scroll',()=>{st.style.display=window.scrollY>500?'flex':'none'});st.onclick=()=>window.scrollTo({top:0,behavior:'smooth'});
+
+// Persian Clock
+function updateClock(){const d=new Date();const t=d.toLocaleTimeString('fa-IR',{timeZone:'Asia/Tehran',hour:'2-digit',minute:'2-digit',second:'2-digit',hour12:false});const dt=d.toLocaleDateString('fa-IR',{timeZone:'Asia/Tehran',year:'numeric',month:'long',day:'numeric',weekday:'long'});const ct=document.getElementById('clockTime');if(ct)ct.textContent=t;const cd=document.getElementById('clockDate');if(cd)cd.textContent=dt;const p=document.getElementById('persianClock');if(p)p.textContent=`🕒 ${dt} — ${t} IRST`;}updateClock();setInterval(updateClock,1000);
+
+// Section Observer
+document.querySelectorAll('section').forEach(s=>{const o=new IntersectionObserver(([e])=>{if(e.isIntersecting){s.classList.add('visible');const v=document.querySelectorAll('section.visible').length;const tot=document.querySelectorAll('section').length;const sp=document.getElementById('studyProg');if(sp)sp.textContent=`${v}/${tot}`;}},{threshold:.1});o.observe(s)});
+(function(){const v=document.querySelectorAll('section.visible').length||0;const tot=document.querySelectorAll('section').length;const sp=document.getElementById('studyProg');if(sp)sp.textContent=`${v}/${tot}`})();
+
+// Quiz
+document.querySelectorAll('.q').forEach(q=>{const check=q.querySelector('.q-check');const reveal=q.querySelector('.q-reveal');const fb=q.querySelector('.q-fb');const ans=q.querySelector('.q-ans');if(check){check.onclick=function(){const sel=q.querySelector('input[type=radio]:checked');if(!sel){fb.innerHTML='⚠️ لطفاً یک گزینه انتخاب کن';return;}fb.innerHTML=sel.value===this.dataset.ans?'✅ درسته! آفرین':'❌ اشتباه — دوباره تلاش کن';};}if(reveal&&ans){reveal.onclick=()=>ans.hidden=!ans.hidden;}});
+
+// Checklist
+document.querySelectorAll('#netChecklist input[type=checkbox]').forEach(cb=>{const key=cb.dataset.key;if(key){const saved=localStorage.getItem(key);if(saved==='true')cb.checked=true;cb.addEventListener('change',function(){localStorage.setItem(key,this.checked);});}});
+document.getElementById('resetChkNet')?.addEventListener('click',function(){if(confirm('ریست کنم؟')){document.querySelectorAll('#netChecklist input[type=checkbox]').forEach(cb=>{cb.checked=false;const k=cb.dataset.key;if(k)localStorage.setItem(k,'false');});}});
+
+// Cheat Search
+const cs=document.getElementById('cheatSearch');const cc=document.getElementById('cheatCount');const ci=document.querySelectorAll('.cheat-item');if(cs){cs.addEventListener('input',function(){const q=this.value.trim().toLowerCase();let n=0;ci.forEach(item=>{const txt=item.textContent.toLowerCase();const m=!q||txt.includes(q);item.style.display=m?'':'none';if(m)n++;});if(cc)cc.textContent=`📌 ${n} دستور پیدا شد`;});}
+
+// Copy
+document.querySelectorAll('.cmd pre').forEach(pre=>{pre.style.cursor='pointer';pre.addEventListener('click',function(){const txt=this.textContent.replace(/^#.*$/gm,'').trim();navigator.clipboard.writeText(txt).catch(()=>{});this.style.border='2px solid var(--green)';setTimeout(()=>this.style.border='',600);});});
+
+// Count-up
+document.querySelectorAll('.stat b[data-count]').forEach(el=>{const target=parseInt(el.dataset.count);if(!target)return;let cur=0;const step=Math.max(1,Math.floor(target/50));const iv=setInterval(()=>{cur+=step;if(cur>=target){cur=target;clearInterval(iv)}el.textContent=cur;},40);});
+</script>
+</body>
+</html>
