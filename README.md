@@ -399,85 +399,6 @@ NET-ACADEMY includes a number of UI elements intended to make studying more enga
 └──────────────────────────────────────┘
 ```
 
----
-
-# 📁 Project Structure
-
-A simple deployment can look like:
-
-```text
-.
-├── network.html
-├── README.md
-└── assets/
-    ├── preview.png
-    └── preview.gif
-```
-
-If you keep the project as a single-file application, `network.html` contains the main experience.
-
----
-
-# 🖼️ Adding a GitHub Preview
-
-For the best-looking repository page, create:
-
-```text
-assets/preview.png
-```
-
-Then put your screenshot in the README:
-
-```html
-<div align="center">
-  <img src="assets/preview.png" width="900">
-</div>
-```
-
-For an animated preview:
-
-```html
-<div align="center">
-  <img src="assets/preview.gif" width="900">
-</div>
-```
-
----
-
-# 📊 GitHub Stats
-
-If you want to show repository statistics on your profile, you can add cards such as:
-
-```html
-<p align="center">
-  <img src="https://github-readme-stats.vercel.app/api?username=YOUR-USERNAME&show_icons=true&theme=tokyonight&hide_border=true" />
-</p>
-```
-
-> Replace `YOUR-USERNAME` with your GitHub username.
-
----
-
-# 🤝 Contributing
-
-Contributions are welcome!
-
-You can contribute by:
-
-1. Forking the repository
-2. Creating a feature branch
-3. Improving lessons or explanations
-4. Adding new quizzes
-5. Improving UI/UX
-6. Fixing bugs
-7. Opening a Pull Request
-
-```bash
-git checkout -b feature/improvement
-git add .
-git commit -m "Improve NET-ACADEMY"
-git push origin feature/improvement
-```
 
 ---
 
@@ -494,17 +415,6 @@ The project is intended for:
 
 Do **not** use the material or tools against systems without permission.
 
----
-
-# 📜 License
-
-Add the license that matches how you want others to use the project.
-
-Common choices include:
-
-* MIT
-* Apache-2.0
-* GPL-3.0
 
 ---
 
